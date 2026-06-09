@@ -15,7 +15,7 @@ class DoctorSeeder extends Seeder
                 'name'      => '山田 太郎',
                 'specialty' => '放射線科',
                 'phone'     => '090-1234-5678',
-                'email'     => 'yamada@clinic.examole.com',
+                'email'     => 'yamada@clinic.example.com',
             ],
             [
                 'name'      => '佐藤 花子',

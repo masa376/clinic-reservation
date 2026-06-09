@@ -9,7 +9,7 @@
 
 - PHP：8.3
 - Laravel：11
-- MySOL：8.4
+- MySQL：8.4
 - TailwindCSS：3系
 - Docker | Laravel Sail
 
@@ -97,21 +97,36 @@ cd clinic-reservation
 cp .env.example .env
 
 # Sailの起動
-./vendor/bin/sail up -d
+sail up -d
 
 # 依存パッケージのインストール
-./vendor/bin/sail composer install
+sail composer install
 
 # アプリケーションキーの生成
-./vendor/bin/sail artisan key:generate
+sail artisan key:generate
 
 # マイグレーション実行
-./vendor/bin/sail artisan migrate
+sail artisan migrate
 
 # フロントエンドのビルド
-./vendor/bin/sail npm install
-./vendor/bin/sail npm run build
+sail npm install
+sail npm run build
+
+# シーダー実行（デモデータ投入）
+sail artisan db:seed
 ```
+
+
+### テストアカウント
+
+| 役割 | メールアドレス | パスワード |
+|------|-------------|---------|
+| 管理者 | admin@clinic.example.com | password |
+| スタッフ | ito@clinic.example.com | password |
+| 医師 | yamada@clinic.example.com | password |
+
+
+
 
 
 
