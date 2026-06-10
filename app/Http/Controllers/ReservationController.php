@@ -18,7 +18,30 @@ class ReservationController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('reservations.index', compact('reservations'));
+        // カレンダー用データ
+        $events = Reservation::with(['patient', 'menu'])
+            ->get()
+            ->map(function ($reservation) {
+                return [
+                    'id'    => $reservation->id,
+                    'title' => $reservation->patient->name . '|' . $reservation->menu->name,
+                    'start' => $reservation->reserved_at->format('Y-m-d\TH:i:s'),
+                    'end'   => $reservation->reserved_at
+                        ->addMinutes($reservation->menu->duration_minutes)
+                        ->format('Y-m-d/TH:i:s'),
+                    'url'   => route('reservations.show', $reservation->id),
+                    'color' => match($reservation->status) {
+                        'confirmed' => '#3B82F6',
+                        'pending'   => '#F59E0B',
+                        'cancelled' => '#EF4444',
+                        'done'      => '#10B981',
+                        default     => '#3B82F6',
+                    },
+                ];
+            })
+            ->toJson();
+
+        return view('reservations.index', compact('reservations', 'events'));
     }
 
 
