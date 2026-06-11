@@ -18,7 +18,7 @@
                             患者 <span class="text-red-500">*</span>
                         </label>
                         <select name="patient_id"
-                                class="w-full border-gary-300 rounded-md shadow-sm">
+                                class="w-full border-gray-300 rounded-md shadow-sm">
                             <option value="">-- 選択してください --</option>
                             @foreach($patients as $patient)
                                 <option value="{{ $patient->id }}"
@@ -37,8 +37,8 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">
                             診療メニュー <span class="text-red-500">*</span>
                         </label>
-                        <select name="menu_id"
-                                class="w-full border-gary-300 rounded-md shadow-sm">
+                        <select name="menu_id" id="menu_id"
+                                class="w-full border-gray-300 rounded-md shadow-sm">
                             <option value="">-- 選択してください --</option>
                             @foreach($menus as $menu)
                                 <option value="{{ $menu->id }}"
@@ -52,13 +52,25 @@
                         @enderror
                     </div>
 
+                    {{-- 検査前注意事項（自動表示）--}}
+                    <div id="preparation-notes-box" class="hidden mb-4">
+                        <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-md">
+                            <p class="text-sm font-medium text-yellow-800 mb-2">
+                                ⚠️ 検査前注意事項
+                            </p>
+                            <p id="preparation-notes-text"
+                                class="text-sm text-yellow-700 whitespace-pre-line">
+                            </p>
+                        </div>
+                    </div>
+
                     {{-- 担当医師 --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-1">
                             担当医師 <span class="text-red-500">*</span>
                         </label>
                         <select name="doctor_id"
-                                class="w-full border-gary-300 rounded-md shadow-sm">
+                                class="w-full border-gray-300 rounded-md shadow-sm">
                             <option value="">-- 選択してください --</option>
                             @foreach($doctors as $doctor)
                                 <option value="{{ $doctor->id }}"
@@ -80,7 +92,7 @@
                             担当スタッフ <span class="text-red-500">*</span>
                         </label>
                         <select name="staff_id"
-                                class="w-full border-gary-300 rounded-md shadow-sm">
+                                class="w-full border-gray-300 rounded-md shadow-sm">
                             <option value="">-- 選択してください --</option>
                             @foreach($staffs as $staff)
                                 <option value="{{ $staff->id }}"
@@ -152,4 +164,23 @@
             </div>
         </div>
     </div>
+
+    {{-- 検査前注意事項の自動表示 --}}
+    <script>
+        const preparationNotes = @json($preparationNotes);
+
+        document.getElementById('menu_id').addEventListener('change', function () {
+            const menuId = this.value;
+            const notes  = JSON.parse(preparationNotes)[menuId];
+            const box    = document.getElementById('preparation-notes-box');
+            const text   = document.getElementById('preparation-notes-text');
+
+            if (notes) {
+                text.textContent = notes;
+                box.classList.remove('hidden');
+            } else {
+                box.classList.add('hidden');
+            }
+        });
+    </script>
 </x-app-layout>

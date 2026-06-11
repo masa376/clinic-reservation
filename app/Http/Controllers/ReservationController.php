@@ -53,7 +53,12 @@ class ReservationController extends Controller
         $staffs   = Staff::latest()->get();
         $menus     = Menu::with('examType')->latest()->get();
 
-        return view('reservations.create', compact('patients', 'doctors', 'staffs', 'menus'));
+        // 検査前注意事項をJSON形式で渡す
+        $preparationNotes = $menus->mapWithKeys(function ($menu) {
+            return [$menu->id => $menu->examType->preparation_notes];
+        })->toJson();
+
+        return view('reservations.create', compact('patients', 'doctors', 'staffs', 'menus', 'preparationNotes'));
     }
 
 
@@ -100,7 +105,13 @@ class ReservationController extends Controller
         $staffs   = Staff::latest()->get();
         $menus     = Menu::with('examType')->latest()->get();
 
-        return view('reservations.edit', compact('reservation', 'patients', 'doctors', 'staffs', 'menus'));
+        // 検査前注意事項をJSON形式で渡す
+        $preparationNotes = $menus->mapWithKeys(function ($menu) {
+            return [$menu->id => $menu->examType->preparation_notes];
+        })->toJson();
+
+        return view('reservations.edit', compact('reservation', 'patients', 'doctors', 'staffs', 'menus', 'preparationNotes'
+        ));
     }
 
 
