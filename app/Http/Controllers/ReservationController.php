@@ -73,6 +73,9 @@ class ReservationController extends Controller
             'reserved_at' => 'required|date',
             'status'      => 'required|in:pending,confirmed,cancelled,done',
             'memo'        => 'nullable|string',
+            'dose_value'  => 'nullable|numeric|min:0',
+            'dose_unit'   => 'nullable|string|max:50',
+            'dose_memo'   => 'nullable|string',
         ]);
 
         Reservation::create($request->only([
@@ -83,6 +86,9 @@ class ReservationController extends Controller
             'reserved_at',
             'status',
             'memo',
+            'dose_value',
+            'dose_unit',
+            'dose_memo',
         ]));
 
         return redirect()->route('reservations.index')
@@ -126,6 +132,9 @@ class ReservationController extends Controller
             'reserved_at' => 'required|date',
             'status'      => 'required|in:pending,confirmed,cancelled,done',
             'memo'        => 'nullable|string',
+            'dose_value'  => 'nullable|numeric|min:0',
+            'dose_unit'   => 'nullable|string|max:50',
+            'dose_memo'   => 'nullable|string',
         ]);
 
         $reservation->update($request->only([
@@ -136,6 +145,9 @@ class ReservationController extends Controller
             'reserved_at',
             'status',
             'memo',
+            'dose_value',
+            'dose_unit',
+            'dose_memo',
         ]));
 
         return redirect()->route('reservations.index')

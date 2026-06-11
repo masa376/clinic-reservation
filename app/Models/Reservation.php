@@ -17,6 +17,9 @@ class Reservation extends Model
         'reserved_at',
         'status',
         'memo',
+        'dose_value',
+        'dose_unit',
+        'dose_memo',
     ];
 
     protected $casts = [

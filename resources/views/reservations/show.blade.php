@@ -83,6 +83,33 @@
                             {{ $reservation->memo ?? '-' }}
                         </p>
                     </div>
+                    {{-- 放射線線量記録 --}}
+                    @if($reservation->dose_value || $reservation->dose_memo)
+                    <div class="border border-blue-200 rounded-md p-4 bg-blue-50 mb-4">
+                        <p class="text-sm font-medium text-blue-800 mb-3">
+                            📊 放射線線量記録
+                        </p>
+                        <div class="space-y-2">
+                            @if($reservation->dose_value)
+                            <div class="flex items-center gap-2">
+                                <p class="text-sm font-medium text-gray-500">線量値</p>
+                                <p class="text-gray-900 font-medium">
+                                    {{ $reservation->dose_value }}
+                                    {{ $reservation->dose_unit }}
+                                </p>
+                            </div>
+                            @endif
+                            @if($reservation->dose_memo)
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">線量メモ</p>
+                                <p class="mt-1 text-gray-900 whitespace-pre-line">
+                                    {{ $reservation->dose_memo }}
+                                </p>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                    @endif
                     <div>
                         <p class="text-sm font-medium text-gray-500">登録日時</p>
                         <p class="mt-1 text-gray-900">
