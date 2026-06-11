@@ -24,43 +24,45 @@
 
             {{-- テーブル --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">検査種別名</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">説明</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse($examTypes as $examType)
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gary-900">{{ $examType->id }}</td>
-                                <td class="px-6 py-4 text-sm text-gary-900">{{ $examType->name }}</td>
-                                <td class="px-6 py-4 text-sm text-gary-500">{{ $examType->description ?? '-' }}</td>
-                                <td class="px-6 py-4 text-sm space-x-2">
-                                    <a href="{{ route('exam-types.show', $examType) }}"
-                                        class="text-blue-600 hover:underline">詳細</a>
-                                    <a href="{{ route('exam-types.edit', $examType) }}"
-                                        class="text-blue-600 hover:underline">編集</a>
-                                    <form action="{{ route('exam-types.destroy', $examType) }}"
-                                        method="POST" class="inline" onsubmit="return confirm('削除しますか？')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:underline">削除</button>
-                                    </form>
-                                </td>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">検査種別名</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">説明</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">操作</th>
                             </tr>
-                            @empty
-                            <tr>
-                                <td colspan="4" class="px-6 py-4 text-center text-gray-500">
-                                    検査種別が登録されていません
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @forelse($examTypes as $examType)
+                                <tr>
+                                    <td class="px-6 py-4 text-sm text-gary-900">{{ $examType->id }}</td>
+                                    <td class="px-6 py-4 text-sm text-gary-900">{{ $examType->name }}</td>
+                                    <td class="px-6 py-4 text-sm text-gary-500">{{ $examType->description ?? '-' }}</td>
+                                    <td class="px-6 py-4 text-sm space-x-2">
+                                        <a href="{{ route('exam-types.show', $examType) }}"
+                                            class="text-blue-600 hover:underline">詳細</a>
+                                        <a href="{{ route('exam-types.edit', $examType) }}"
+                                            class="text-blue-600 hover:underline">編集</a>
+                                        <form action="{{ route('exam-types.destroy', $examType) }}"
+                                            method="POST" class="inline" onsubmit="return confirm('削除しますか？')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:underline">削除</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="4" class="px-6 py-4 text-center text-gray-500">
+                                        検査種別が登録されていません
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
 
                 {{-- ページネーション --}}
                 <div class="px-6 py-4">

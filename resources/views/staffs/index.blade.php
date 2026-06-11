@@ -25,49 +25,51 @@
 
             {{-- テーブル --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">氏名</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">職種</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">電話番号</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">メールアドレス</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse($staffs as $staff)
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gray-900">{{ $staff->id }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">{{ $staff->name }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">{{ $staff->role }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">{{ $staff->phone ?? '-' }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">{{ $staff->email ?? '-' }}
-                                </td>
-                                <td class="px-6 py-4 text-sm space-x-2">
-                                    <a href="{{ route('staffs.show', $staff) }}"
-                                        class="text-blue-600 hover:underline">詳細</a>
-                                    <a href="{{ route('staffs.edit', $staff) }}"
-                                        class="text-yellow-600 hover:underline">編集</a>
-                                    <form action="{{ route('staffs.destroy', $staff) }}"
-                                            method="POST" class="inline"
-                                            onsubmit="return confirm('削除しますか？')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:underline">削除</button>
-                                    </form>
-                                </td>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">氏名</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">職種</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">電話番号</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">メールアドレス</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">操作</th>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="px-6 py-4 text-center text-gray-500">
-                                    スタッフが登録されていません
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @forelse($staffs as $staff)
+                                <tr>
+                                    <td class="px-6 py-4 text-sm text-gray-900">{{ $staff->id }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">{{ $staff->name }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">{{ $staff->role }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">{{ $staff->phone ?? '-' }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">{{ $staff->email ?? '-' }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm space-x-2">
+                                        <a href="{{ route('staffs.show', $staff) }}"
+                                            class="text-blue-600 hover:underline">詳細</a>
+                                        <a href="{{ route('staffs.edit', $staff) }}"
+                                            class="text-yellow-600 hover:underline">編集</a>
+                                        <form action="{{ route('staffs.destroy', $staff) }}"
+                                                method="POST" class="inline"
+                                                onsubmit="return confirm('削除しますか？')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:underline">削除</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                                        スタッフが登録されていません
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
 
                 {{-- ページネーション --}}
                 <div class="px-6 py-4">
