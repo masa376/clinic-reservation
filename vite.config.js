@@ -8,6 +8,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/js/calendar.js',
+                'resources/tsx/reservation-form.tsx',
             ],
             refresh: true,
         }),
